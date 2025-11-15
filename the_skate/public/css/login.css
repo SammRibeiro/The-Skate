@@ -1,0 +1,147 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+
+body{
+  padding-top: 100px;
+  background: #2C2C2C;
+  font-family: Arial, Helvetica, sans-serif;
+  color: white;
+}
+
+header{
+  position: absolute;
+  top: 0;
+  left: 0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  width: 100%;
+  background-color: #383A56;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+#logo img{
+  width: 100px;
+}
+
+nav{
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  margin-right: 50px;
+}
+
+nav a{
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 15px;
+}
+
+nav a:hover{
+  opacity: 0.6;
+  transform: scale(1.1);
+  transition: 1.0s;
+}
+
+
+/* LOGIN */
+
+.login{
+  display: flex;
+  justify-content: center;
+}
+
+.login-container{
+  background: #23294d;
+  min-width: 400px;
+  min-height: 400px;
+  gap: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 40px;
+  border-radius: 10px;
+  margin-top: 100px;
+  margin-bottom: 10px;
+}
+
+.loading-login img{
+  width: 100px;
+  display: none;
+}
+
+
+.formulario{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.formulario button{
+  width: 100px;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.formulario button:hover{
+  opacity: 0.6;
+  transform: scale(1.07);
+  transition: 1.0s;
+}
+
+.criar_cadastro a{
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  margin-top: 10px;
+  text-decoration: underline;
+  color: #ffff;
+}
+
+.criar_cadastro a:hover{
+  opacity: 0.6;
+  transform: scale(1.07);
+  transition: 1.0s;
+}
+
+input{
+  width: 200px;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+#footer{
+  background: #23294d;
+  padding: 40px 80px;
+  margin-top: 60px;
+}
+
+.footer-content{
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 40px;
+}
+
+.footer-left{
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+}
+.footer-left a{
+  text-decoration: none;
+  color: #ffff;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.footer-left a:hover{
+  opacity: 0.7;
+}

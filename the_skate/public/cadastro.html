@@ -72,7 +72,7 @@
                 <img src="assets/imgs/loading.gif" alt="loading-gif">
             </div>
 
-            <div id="erros_login"></div>
+            <div id="mensagem_erro"></div>
         </div>
     </div>
 
@@ -97,18 +97,17 @@
             nomeVar == "" ||
             emailVar == "" ||
             senhaVar == "" ||
-            confirmacaoSenhaVar == "" ||
-            codigoVar == "" ||
-            cpfVar == ""
+            confirmacaoSenhaVar == ""
         ) {
             cardErro.style.display = "block";
             mensagem_erro.innerHTML =
                 "Preencha todos os campos solicitados!";
             finalizarAguardar();
             return false;
-        } else {
-            setInterval(sumirMensagem, 5000);
-        }
+        } 
+        // else {
+        //     setInterval(sumirMensagem, 5000);
+        // }
 
         if (nomeVar.length < 2) {
             cardErro.style.display = "block";
@@ -129,7 +128,7 @@
                 // Agora vá para o arquivo routes/usuario.js
                 nomeServer: nomeVar,
                 emailServer: emailVar,
-                senhaServer: senhaVar,
+                senhaServer: senhaVar
             }),
         })
             .then(function (resposta) {
@@ -153,7 +152,7 @@
             })
             .catch(function (resposta) {
                 console.log(`#ERRO: ${resposta}`);
-                finalizarAguardar();
+                // finalizarAguardar();
             });
 
         return false;

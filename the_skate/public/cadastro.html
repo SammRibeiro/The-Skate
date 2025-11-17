@@ -2,86 +2,85 @@
 <html lang="pt-br">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>The Skate | Cadastro</title>
+  <title>The Skate | Cadastro</title>
 
-    <script src="./js/sessao.js"></script>
+  <script src="./js/sessao.js"></script>
 
-    <link rel="stylesheet" href="css/login.css">
-    <link rel="icon" href="assets/icon/logo_site.png">
+  <link rel="stylesheet" href="css/login.css">
+  <link rel="icon" href="assets/icon/logo_site.png">
 
 </head>
 
 <body>
-    <header>
-        <div id="logo">
-            <img src="assets/icon/logo_site.png" alt="logosite">
+  <header>
+    <div id="logo">
+      <img src="assets/icon/logo_site.png" alt="logosite">
+    </div>
+
+    <nav>
+      <a href="index.html">HOME</a>
+      <a href="index.html#manobras">MANOBRAS</a>
+      <a href="index.html#skatistas">SKATISTAS</a>
+    </nav>
+  </header>
+
+  <div class="alerta-erro">
+    <div class="card-erro" id="cardErro">
+      <span id="mensagem_erro"></span>
+    </div>
+  </div>
+  
+  <div class="login">
+    <div class="login-container">
+
+      <h2>Cadastre-se</h2>
+
+      <div class="formulario">
+        <div class="campo">
+          <span>Nome:</span> <br>
+          <input type="text" id="nome_input" placeholder="Digite aqui">
         </div>
 
-        <nav>
-            <a href="index.html">HOME</a>
-            <a href="index.html#manobras">MANOBRAS</a>
-            <a href="index.html#skatistas">SKATISTAS</a>
-        </nav>
-    </header>
+        <div class="campo">
+          <span>E-mail:</span> <br>
+          <input type="text" id="email_input" placeholder="ex: theskate@gmail.com">
+        </div>
 
-    <div class="alerta-erro">
-      <div class="card-erro" id="cardErro">
-        <span id="mensagem_erro"></span>
+        <div class="campo">
+          <span>Senha:</span><br>
+          <input type="password" id="senha_input" placeholder="********">
+        </div>
+
+        <div class="campo">
+          <span>Confirmar senha:</span><br>
+          <input type="password" id="confirmacao_senha_input" placeholder="********">
+        </div>
+
+
+
+        <button onclick="cadastrar()">Cadastrar</button>
       </div>
+
+      <div class="criar_cadastro">
+        <a href="login.html">Entrar em uma conta já existente</a>
+      </div>
+
+
+      <div id="divErrosLogin"></div>
     </div>
-
-    <div class="login">
-        <div class="login-container">
-
-            <h2>Cadastre-se</h2>
-
-            <div class="formulario">
-                <div class="campo">
-                    <span>Nome:</span> <br>
-                    <input type="text" id="nome_input" placeholder="Digite aqui">
-                </div>
-
-                <div class="campo">
-                    <span>E-mail:</span> <br>
-                    <input type="text" id="email_input" placeholder="ex: theskate@gmail.com">
-                </div>
-
-                <div class="campo">
-                    <span>Senha:</span><br>
-                    <input type="password" id="senha_input" placeholder="********">
-                </div>
-
-                <div class="campo">
-                    <span>Confirmar senha:</span><br>
-                    <input type="password" id="confirmacao_senha_input" placeholder="********">
-                </div>
-
-
-
-                <button onclick="cadastrar()">Cadastrar</button>
-            </div>
-
-            <div class="criar_cadastro">
-                <a href="login.html">Entrar em uma conta já existente</a>
-            </div>
-
-          
-            <div id="divErrosLogin"></div>
-        </div>
-    </div>
+  </div>
 
 </body>
 
 </html>
 
 <script>
-    function cadastrar() {
-    // aguardar();
-
+  function cadastrar() {
+    
     //Recupere o valor da nova input pelo nome do id
     // Agora vá para o método fetch logo abaixo
     var nomeVar = nome_input.value;
@@ -98,22 +97,55 @@
     ) {
       cardErro.style.display = "block";
       mensagem_erro.innerHTML =
-        "(Mensagem de erro para todos os campos em branco)";
+        'Todos os campos devem ser preenchidos';
 
-      finalizarAguardar();
       return false;
-    } else {
-      setInterval(sumirMensagem, 1000);
+    }
+    else {
+      setInterval(sumirMensagem, 5000);
     }
 
     if (nomeVar.length < 2) {
       cardErro.style.display = "block";
       mensagem_erro.innerHTML =
-        "(Mensagem de erro para todos os campos em branco)";
-
-      finalizarAguardar();
+        'Seu nome deve conter ao menos 2 letras';
       return false;
+    } 
+    else {
+      setInterval(sumirMensagem, 5000);
     }
+
+    if (emailVar.indexOf('@') == -1 || emailVar.indexOf('.') == -1) {
+      cardErro.style.display = "block";
+      mensagem_erro.innerHTML =
+        'O email deve conter "@" e "."';
+      return false;
+    } 
+    else {
+      setInterval(sumirMensagem, 5000);
+    }
+
+    if (senhaVar.length < 8) {
+      cardErro.style.display = "block";
+      mensagem_erro.innerHTML =
+        'Senha deve conter ao menos 8 caracteres.';
+      return false;
+    } 
+    else {
+      setInterval(sumirMensagem, 5000);
+    }
+
+    if (confirmacaoSenhaVar != senhaVar) {
+      cardErro.style.display = "block";
+      mensagem_erro.innerHTML =
+        'As senhas digitadas não estão iguais.';
+      return false;
+    } 
+    else {
+      setInterval(sumirMensagem, 5000);
+    }
+
+
 
     // Enviando o valor da nova input
     fetch("/usuarios/cadastrar", {

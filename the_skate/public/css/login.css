@@ -67,8 +67,6 @@ nav a:hover{
 }
 
 
-
-
 .login{
   display: flex;
   justify-content: center;
@@ -103,6 +101,7 @@ nav a:hover{
 
 .formulario button{
   width: 100px;
+  background-color: #acaaaa;
   border-radius: 10px;
   padding: 10px;
 }
@@ -132,6 +131,28 @@ input{
   width: 200px;
   border-radius: 10px;
   padding: 10px;
+}
+
+
+.loading-div {
+  width: 50px;
+  margin: auto;
+  display: none;
+}
+
+
+.loading-div {
+  width: 50px;
+  display: none;
+}
+
+.loading-div img {
+  height: 50px;
+  width: 50px;
+}
+
+#div_erros_login {
+  display: none
 }
 
 #footer{

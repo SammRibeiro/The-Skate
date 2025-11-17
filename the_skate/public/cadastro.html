@@ -33,12 +33,12 @@
       <span id="mensagem_erro"></span>
     </div>
   </div>
-  
+
   <div class="login">
     <div class="login-container">
 
       <h2>Cadastre-se</h2>
-
+      
       <div class="formulario">
         <div class="campo">
           <span>Nome:</span> <br>
@@ -61,16 +61,20 @@
         </div>
 
 
+        <button onclick="cadastrar()">Criar conta</button>
 
-        <button onclick="cadastrar()">Cadastrar</button>
+        <div id="div_aguardar" class="loading-div">
+          <img src="assets/imgs/loading-unscreen.gif" id="loading-gif">
+        </div>
       </div>
 
       <div class="criar_cadastro">
-        <a href="login.html">Entrar em uma conta já existente</a>
+        <p>Já tem uma conta?</p>
+        <a href="login.html">Entre aqui</a>
       </div>
 
 
-      <div id="divErrosLogin"></div>
+
     </div>
   </div>
 
@@ -81,14 +85,12 @@
 <script>
   function cadastrar() {
     
-    //Recupere o valor da nova input pelo nome do id
-    // Agora vá para o método fetch logo abaixo
     var nomeVar = nome_input.value;
     var emailVar = email_input.value;
     var senhaVar = senha_input.value;
     var confirmacaoSenhaVar = confirmacao_senha_input.value;
 
-    // Verificando se há algum campo em branco
+    // Validando Entradas
     if (
       nomeVar == "" ||
       emailVar == "" ||
@@ -98,7 +100,7 @@
       cardErro.style.display = "block";
       mensagem_erro.innerHTML =
         'Todos os campos devem ser preenchidos';
-
+      finalizarAguardar();
       return false;
     }
     else {
@@ -109,8 +111,9 @@
       cardErro.style.display = "block";
       mensagem_erro.innerHTML =
         'Seu nome deve conter ao menos 2 letras';
+      finalizarAguardar()
       return false;
-    } 
+    }
     else {
       setInterval(sumirMensagem, 5000);
     }
@@ -119,8 +122,9 @@
       cardErro.style.display = "block";
       mensagem_erro.innerHTML =
         'O email deve conter "@" e "."';
+        finalizarAguardar()
       return false;
-    } 
+    }
     else {
       setInterval(sumirMensagem, 5000);
     }
@@ -129,8 +133,9 @@
       cardErro.style.display = "block";
       mensagem_erro.innerHTML =
         'Senha deve conter ao menos 8 caracteres.';
+      finalizarAguardar()
       return false;
-    } 
+    }
     else {
       setInterval(sumirMensagem, 5000);
     }
@@ -139,23 +144,22 @@
       cardErro.style.display = "block";
       mensagem_erro.innerHTML =
         'As senhas digitadas não estão iguais.';
+      finalizarAguardar()
       return false;
-    } 
+    }
     else {
       setInterval(sumirMensagem, 5000);
     }
 
 
 
-    // Enviando o valor da nova input
+   
     fetch("/usuarios/cadastrar", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        // crie um atributo que recebe o valor recuperado aqui
-        // Agora vá para o arquivo routes/usuario.js
         nomeServer: nomeVar,
         emailServer: emailVar,
         senhaServer: senhaVar
@@ -168,7 +172,7 @@
           cardErro.style.display = "block";
 
           mensagem_erro.innerHTML =
-            "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
+            "Cadastro realizado com sucesso! <br> Redirecionando para tela de Login...";
 
           setTimeout(() => {
             window.location = "login.html";

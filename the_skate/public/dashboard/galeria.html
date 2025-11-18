@@ -8,16 +8,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Skate | Dashboards</title>
 
-    
+
     <link rel="stylesheet" href="./../css/dashboards.css">
     <script src="../js/sessao.js"></script>
-    
+
     <!-- scripts do Chart.js - 2022-1 -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 </head>
 
 <body>
+    <div class="container">
+
         <div class="header-left">
             <img style="width: 300px;" src="../assets/icon/logo_site.png" alt="">
 
@@ -37,27 +39,24 @@
                 </a>
             </div>
 
-            <div class="btn-galeriapage">
+            <div class="ativo" class="btn-galeriapage">
                 <a href="galeria.html">
                     <h3>Galeria</h3>
                 </a>
             </div>
 
             <div class="btn-logout" onclick="limparSessao()">
-                    <h3>Sair</h3>
+                <h3>Sair</h3>
             </div>
 
         </div>
 
-        <div class="dash">
-            <div class="btns-dash" id="btnDash">
-                <!-- O gráfico é chamado de acordo com o id (fk_aquario) do banco  -->
-            </div>
-            <div id="graficos">
-            </div>
-        </div>
 
-        
+
+    </div>
+
+
+
 
 
 </body>
@@ -67,5 +66,5 @@
 <script>
     b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
 
-    
+
 </script>

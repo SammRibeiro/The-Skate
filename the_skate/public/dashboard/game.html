@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <link rel="shortcut icon" href="/The-Skate/the_skate/public/assets/icon/logo_site.png" type="image/x-icon">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Skate</title>
+
+
+    <link rel="stylesheet" href="./../css/dashboards.css">
+    <script src="../js/sessao.js"></script>
+
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="header-left">
+            <img style="width: 300px;" src="../assets/icon/logo_site.png" alt="">
+
+            <div class="hello">
+                <h2>Olá, <span id="b_usuario"></span>! </h2>
+            </div>
+
+            <div class="btn-dashpage">
+                <a href="dashboard.html">
+                    <h3>Painel</h3>
+                </a>
+            </div>
+
+            <div class="btn-votacaopage">
+                <a href="votacao.html">
+                    <h3>Votação</h3>
+                </a>
+            </div>
+
+            <div class="ativo" class="btn-gamepage">
+                <a href="game.html">
+                    <h3>Game of Skate</h3>
+                </a>
+            </div>
+
+            <div class="btn-logout" onclick="limparSessao()">
+                <h3>Sair</h3>
+            </div>
+
+        </div>
+
+
+        <div class="content-game">
+            <div class="card-game">
+
+                <div id="mensagem_game">
+                    Para tornar o seu game mais desafiador, nessa página você sorteia uma manobra aleatória para
+                    praticar ou competir com seu mano. <br><br>
+                    Preparado?
+                    <br><br>
+                    Sorteie uma manobra e o game já está valendo !!
+                </div>
+
+                <div id="imagem_manobra" class="imagem"></div>
+            </div>
+
+            <button onclick="sortearManobra()" id="btn_sorteio">
+                <h3>
+                    Sortear Manobra
+                </h3>
+            </button>
+
+            <div class="div_desempenho">
+                <button id="btn_acerto" onclick="acerto()" disabled>
+                    <h3>Acerto</h3>
+                </button>
+                <button id="btn_erro" onclick="erro()" disabled>
+                    <h3>Erro</h3>
+                </button>
+                <button id="btn_reset" onclick="finalizarGame()" disabled>
+                    <h3>Finalizar Game</h3>
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+
+</body>
+
+</html>
+
+<script>
+    b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
+
+    var manobras = [
+        '<img src="../assets/imgs/ollie.jpg" alt="Ollie">',
+        '<img src="../assets/imgs/impossible.jpg" alt="Impossible">',
+        '<img src="../assets/imgs/kick.jpg" alt="Flip">']
+
+    var nome_manobra = [
+        'Ollie',
+        'Impossible',
+        'Kickflip']
+
+    var quantidade_manobras = 0
+    var acertos = 0
+    var erros = 0
+
+    function sortearManobra() {
+        var ax_manobra_sorteada = Math.floor(Math.random() * manobras.length)
+        quantidade_manobras++
+
+        mensagem_game.style.display = 'none'
+        imagem_manobra.style.display = 'block'
+
+        imagem_manobra.innerHTML = `${manobras[ax_manobra_sorteada]} ${nome_manobra[ax_manobra_sorteada]}`
+
+        btn_acerto.disabled = false
+        btn_erro.disabled = false
+        btn_sorteio.disabled = true
+        btn_reset.disabled = true
+    }
+
+
+    function acerto() {
+        acertos++
+        btn_erro.disabled = true
+        btn_sorteio.disabled = false
+        btn_acerto.disabled = true
+        btn_reset.disabled = false
+    }
+
+
+    function erro() {
+        erros++
+        btn_acerto.disabled = true
+        btn_sorteio.disabled = false
+        btn_erro.disabled = true
+        btn_reset.disabled = false
+    }
+
+    function finalizarGame() {
+        mensagem_game.style.display = 'block'
+        imagem_manobra.style.display = 'none'
+
+        var aproveitamento = (acertos / quantidade_manobras) * 100;
+
+        mensagem_game.innerHTML = `<span>
+        Total de Manobras sorteadas: ${quantidade_manobras} Manobras
+        <br>
+        Acertos: ${acertos} Manobras 
+        <br>
+        Erros: ${erros} Manobras
+        <br>
+        Aproveitamento: ${aproveitamento.toFixed(1)}%
+        <br><br><br></span>`
+
+        if (aproveitamento > 50) {
+            mensagem_game.innerHTML += `<span>Mandou bem demais ${sessionStorage.NOME_USUARIO}, foi um desempenho maneiro !!</span>`
+        }
+        else {
+            mensagem_game.innerHTML += '<span>Mandou bem, porém com mais prática podemos melhorar esse resultado !!</span>'
+        }
+
+        setTimeout(function () {
+
+            erros = 0
+            acertos = 0
+            aproveitamento = 0
+            quantidade_manobras = 0
+
+            mensagem_game.innerHTML = 'Preparado para outro game? <br><br><br> Se sim, só sortear outra manobra !!'
+        }, 10000);
+
+        btn_acerto.disabled = true
+        btn_reset.disabled = true
+        btn_erro.disabled = true
+        btn_sorteio.disabled = false
+    }
+</script>

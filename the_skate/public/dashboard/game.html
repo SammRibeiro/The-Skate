@@ -98,12 +98,28 @@
     var manobras = [
         '<img src="../assets/imgs/ollie.jpg" alt="Ollie">',
         '<img src="../assets/imgs/impossible.jpg" alt="Impossible">',
-        '<img src="../assets/imgs/kick.jpg" alt="Flip">']
+        '<img src="../assets/imgs/kick.jpg" alt="Flip">',
+        '<img src="../assets/imgs/noseblunt.jpg" alt="NoseBlunt">',
+        '<img src="../assets/imgs/hardflip.jpg" alt="Hardflip">',
+        '<img src="../assets/imgs/fsinvert.jpg" alt="FsInvert">',
+        '<img src="../assets/imgs/fiftyslide.jpg" alt="FiftySlide">',
+        '<img src="../assets/imgs/crookedslide.jfif" alt="CrookedSlide">',
+        '<img src="../assets/imgs/boardslide.jfif" alt="BoardSlide">',
+        '<img src="../assets/imgs/tailslide.jpg" alt="TailSlide">'
+    ]
 
     var nome_manobra = [
         'Ollie',
         'Impossible',
-        'Kickflip']
+        'Kickflip',
+        'Nose Blunt',
+        'HardFlip',
+        'Fs Invert',
+        '50-50',
+        'Crooked',
+        'Board Slide',
+        'Tail Slide'
+    ]
 
     var quantidade_manobras = 0
     var acertos = 0
@@ -159,10 +175,10 @@
         <br><br><br></span>`
 
         if (aproveitamento > 50) {
-            mensagem_game.innerHTML += `<span>Mandou bem demais ${sessionStorage.NOME_USUARIO}, foi um desempenho maneiro !!</span>`
+            mensagem_game.innerHTML += `<span>Mandou bem demais ${sessionStorage.NOME_USUARIO}, foi um desempenho maneiro !! <br><br> *O progresso é salvo automaticamente e você pode vizualisar seu desempenho na seção do Painel.*</span>`
         }
         else {
-            mensagem_game.innerHTML += '<span>Mandou bem, porém com mais prática podemos melhorar esse resultado !!</span>'
+            mensagem_game.innerHTML += '<span>Mandou bem, porém com mais prática podemos melhorar esse resultado !! <br><br> *O progresso é salvo automaticamente e você pode vizualisar seu desempenho na seção do Painel.*</span>'
         }
 
         setTimeout(function () {
@@ -172,7 +188,7 @@
             aproveitamento = 0
             quantidade_manobras = 0
 
-            mensagem_game.innerHTML = 'Preparado para outro game? <br><br><br> Se sim, só sortear outra manobra !!'
+            mensagem_game.innerHTML = 'Preparado para outro game? <br><br><br> Se sim, sorteia outra manobra aí !!'
         }, 10000);
 
         btn_acerto.disabled = true

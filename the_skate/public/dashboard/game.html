@@ -9,7 +9,7 @@
     <title>The Skate</title>
 
 
-    <link rel="stylesheet" href="./../css/dashboards.css">
+    <link rel="stylesheet" href="../css/dashboards.css">
     <script src="../js/sessao.js"></script>
 
 </head>
@@ -30,11 +30,6 @@
                 </a>
             </div>
 
-            <div class="btn-votacaopage">
-                <a href="votacao.html">
-                    <h3>Votação</h3>
-                </a>
-            </div>
 
             <div class="ativo" class="btn-gamepage">
                 <a href="game.html">
@@ -90,8 +85,6 @@
 
 </body>
 
-</html>
-
 <script>
     b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
 
@@ -121,12 +114,54 @@
         'Tail Slide'
     ]
 
+    var manobra_forte = ''
+
+    var acerto_ollie = 0
+    var acerto_impossible = 0
+    var acerto_kickflip = 0
+    var acerto_nose_blunt = 0
+    var acerto_hardflip = 0
+    var acerto_fs_invert = 0
+    var acerto_50_50 = 0
+    var acerto_crooked = 0
+    var acerto_board_slide = 0
+    var acerto_tail_slide = 0
+
+
+
+
     var quantidade_manobras = 0
     var acertos = 0
     var erros = 0
 
+    var ax_manobra_sorteada = 0
     function sortearManobra() {
-        var ax_manobra_sorteada = Math.floor(Math.random() * manobras.length)
+
+        if (btn_reset.disabled == true) {
+
+            erros = 0
+            acertos = 0
+            quantidade_manobras = 0
+
+
+            acerto_ollie = 0
+            acerto_impossible = 0
+            acerto_kickflip = 0
+            acerto_nose_blunt = 0
+            acerto_hardflip = 0
+            acerto_fs_invert = 0
+            acerto_50_50 = 0
+            acerto_crooked = 0
+            acerto_board_slide = 0
+            acerto_tail_slide = 0
+
+            manobra_forte = ''
+
+        }
+
+
+
+        ax_manobra_sorteada = Math.floor(Math.random() * manobras.length)
         quantidade_manobras++
 
         mensagem_game.style.display = 'none'
@@ -137,12 +172,24 @@
         btn_acerto.disabled = false
         btn_erro.disabled = false
         btn_sorteio.disabled = true
-        btn_reset.disabled = true
+        btn_reset.disabled = false
     }
 
 
     function acerto() {
         acertos++
+
+        if (ax_manobra_sorteada == 0) { acerto_ollie++ }
+        if (ax_manobra_sorteada == 1) { acerto_impossible++ }
+        if (ax_manobra_sorteada == 2) { acerto_kickflip++ }
+        if (ax_manobra_sorteada == 3) { acerto_nose_blunt++ }
+        if (ax_manobra_sorteada == 4) { acerto_hardflip++ }
+        if (ax_manobra_sorteada == 5) { acerto_fs_invert++ }
+        if (ax_manobra_sorteada == 6) { acerto_50_50++ }
+        if (ax_manobra_sorteada == 7) { acerto_crooked++ }
+        if (ax_manobra_sorteada == 8) { acerto_board_slide++ }
+        if (ax_manobra_sorteada == 9) { acerto_tail_slide++ }
+
         btn_erro.disabled = true
         btn_sorteio.disabled = false
         btn_acerto.disabled = true
@@ -164,6 +211,34 @@
 
         var aproveitamento = (acertos / quantidade_manobras) * 100;
 
+        var lista_acertos = [
+            acerto_ollie,
+            acerto_impossible,
+            acerto_kickflip,
+            acerto_nose_blunt,
+            acerto_hardflip,
+            acerto_fs_invert,
+            acerto_50_50,
+            acerto_crooked,
+            acerto_board_slide,
+            acerto_tail_slide,
+        ];
+
+        var ax_manobraForte = 0;
+        var maior_acerto = lista_acertos[0]
+
+        for (let i = 1; i < lista_acertos.length; i++) {
+            if (lista_acertos[i] > maior_acerto) {
+                maior_acerto = lista_acertos[i];
+                ax_manobraForte = i;
+            }
+        }
+
+        manobra_forte = nome_manobra[ax_manobraForte]
+
+
+
+
         mensagem_game.innerHTML = `<span>
         Total de Manobras sorteadas: ${quantidade_manobras} Manobras
         <br>
@@ -182,14 +257,39 @@
         }
 
         setTimeout(function () {
-
-            erros = 0
-            acertos = 0
-            aproveitamento = 0
-            quantidade_manobras = 0
-
             mensagem_game.innerHTML = 'Preparado para outro game? <br><br><br> Se sim, sorteia outra manobra aí !!'
-        }, 10000);
+        }, 15000);
+
+        fetch("/partidas/cadastrar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                fkUsuarioServer: sessionStorage.ID_USUARIO,
+                quantidade_manobrasServer: quantidade_manobras,
+                acertosServer: acertos,
+                manobra_forteServer: manobra_forte
+            }),
+        })
+            .then(function (resposta) {
+                console.log("resposta: ", resposta);
+
+                if (resposta.ok) {
+                    console.log('Partida Registrada com sucesso')
+                } else {
+                    console.log('Estou no fetch de game.html')
+                    console.log('Erro ao registrar partida')
+                }
+            })
+            .catch(function (erro) {
+                console.log(erro);
+            });
+
+
+
+
+
 
         btn_acerto.disabled = true
         btn_reset.disabled = true
@@ -197,3 +297,5 @@
         btn_sorteio.disabled = false
     }
 </script>
+
+</html>

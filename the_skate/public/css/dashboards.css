@@ -132,14 +132,6 @@ body {
   background-color: #19192e;
 }
 
-.btn-votacaopage:hover {
-  width: 150px;
-  transform: scale(1.1);
-  transition: 1.0s;
-  text-align: center;
-  border-radius: 10px;
-  background-color: #19192e;
-}
 
 .btn-gamepage:hover {
   width: 150px;

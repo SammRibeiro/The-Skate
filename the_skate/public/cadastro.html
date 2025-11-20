@@ -80,8 +80,6 @@
 
 </body>
 
-</html>
-
 <script>
   function cadastrar() {
     
@@ -181,6 +179,9 @@
           limparFormulario();
           finalizarAguardar();
         } else {
+          cardErro.style.display = "block";
+          mensagem_erro.innerHTML = "Já existe uma conta registrada com esse email.";
+          
           throw "Houve um erro ao tentar realizar o cadastro!";
         }
       })
@@ -198,3 +199,4 @@
     cardErro.style.display = "none";
   } 
 </script>
+</html>

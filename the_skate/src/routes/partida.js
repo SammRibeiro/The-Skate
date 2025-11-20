@@ -8,4 +8,8 @@ router.post("/cadastrar", function (req, res) {
     partidaController.cadastrarPartida(req, res);
 })
 
+router.post("/buscar", function (req, res) {
+    partidaController.buscarPartida(req, res);
+})
+
 module.exports = router;

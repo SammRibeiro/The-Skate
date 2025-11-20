@@ -3,17 +3,18 @@ body {
   padding: 0;
   font-family: 'Barlow', 'Segoe UI', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background: #2c2c2c;
+  overflow-x: hidden;
+  overflow-y: hidden;
 }
 
 /* PAGINA DOS GRÁFICOS 2023 */
 
 
-.container{
+.container {
   display: flex;
-  justify-content: space-between;
 }
 
-.content-game{
+.content-game {
   width: 100%;
   display: flex;
   justify-content: center;
@@ -21,66 +22,66 @@ body {
   align-items: center;
 }
 
-.div_desempenho button{
+.div_desempenho button {
   width: 100px;
   cursor: pointer;
 }
 
-#btn_reset{
+#btn_reset {
   width: 150px;
   margin-left: 20px;
 }
 
-#btn_acerto:hover{
+#btn_acerto:hover {
   width: 100px;
   background-color: #008000;
 }
 
-#btn_erro:hover{
+#btn_erro:hover {
   width: 100px;
   background-color: #f0000f;
 }
 
 
-#imagem_manobra{
+#imagem_manobra {
   font-size: 40px;
   font-weight: bold;
   color: #ffff;
   text-align: center;
 }
 
-#mensagem_game{
-  margin-top: 20px;
+#mensagem_game {
+  margin-top: 15px;
   text-align: center;
-  font-size: 35px;
+  font-size: 25px;
   font-weight: bold;
   color: #ffff;
   align-self: center;
 }
 
-#mensagem_game span{
+#mensagem_game span {
   text-align: center;
-  font-size: 15px;
+  font-size: 20px;
   font-weight: bold;
   color: #ffff;
   align-self: center;
 }
 
-.content-game button{
+.content-game button {
   margin-top: 30px;
   background-color: #7e7e7e;
   border-radius: 15px;
   cursor: pointer;
 }
 
-.content-game button:hover{
+.content-game button:hover {
   background-color: #0c0c1e;
   color: #ffff;
   transform: scale(1.1);
   transition: 1.0s;
 }
 
-.card-game{
+.card-game {
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -91,15 +92,15 @@ body {
   border-radius: 15px;
 }
 
-.imagem{
+.imagem {
   width: 50%;
   height: 60%;
-  margin-top: 30px;
+  margin-top: 10px;
 }
 
-.imagem img{
+.imagem img {
   width: 100%;
-  height: 100%;
+  height: 300px;
   background-size: cover;
   border-radius: 15px;
 }
@@ -112,7 +113,7 @@ body {
 
 
 
-.ativo{
+.ativo {
   border-right: white;
   border-right-style: solid;
   width: 150px;
@@ -165,7 +166,7 @@ body {
   cursor: pointer;
 }
 
-.btn-logout:hover{
+.btn-logout:hover {
   width: 150px;
   color: #ffff;
   transform: scale(1.1);
@@ -177,18 +178,54 @@ body {
 
 
 
- .content-dash{
+.content-dash {
   width: 100%;
   display: flex;
-  justify-content: flex-start;
-  align-items: end;
-  margin-bottom: 5%;
-  margin-left: 5%;
- }
-#graficos{
-  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
-#myChartCanvas{
-  width: 600px;
+#div_kpis {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 20%;
+  padding: 0px 20px 0px;
+  margin-bottom: 10%;
+}
+
+.card {
+  border-radius: 10px;
+  color: #ffff;
+  box-shadow: 0 20px 20px rgba(0, 0, 0, 0.3);
+  background-color: #3C3C68;
+  width: 35%;
+  height: 150px;
+  margin: 0px 10px 0px 10px;
+  text-align: center;
+}
+
+
+#graficos {
+  display: flex;
+  color: #ffff;
+  gap: 300px;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.barra-grafico, .pie-grafico h2{
+  text-align: center;
+}
+
+
+#graficoBarra {
+  
+  width: 500px;
+}
+
+#graficoPie{
+  width: 250px;
 }

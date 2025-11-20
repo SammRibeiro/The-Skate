@@ -2,27 +2,30 @@
 var partidaModel = require("../models/partidaModel");
 
 function cadastrarPartida(req, res) {
-    
+
     var fkUsuario = req.body.fkUsuarioServer;
     var quantidade_manobras = req.body.quantidade_manobrasServer;
     var acertos = req.body.acertosServer;
+    var erros = req.body.errosServer;
     var manobra_forte = req.body.manobra_forteServer;
 
 
-   
+
     if (fkUsuario == undefined) {
         res.status(400).send("Sua fkUsuario está undefined!");
     } else if (quantidade_manobras == undefined) {
         res.status(400).send("Sua quantidade_manobras está undefined!");
     } else if (acertos == undefined) {
         res.status(400).send("Seu acertos está undefined!");
+    } else if (erros == undefined) {
+        res.status(400).send("Seu erros está undefined!");
     } else if (manobra_forte == undefined) {
         res.status(400).send("Sua manobra_forte está undefined!");
     }
     else {
 
-        
-        partidaModel.cadastrarPartida(fkUsuario, quantidade_manobras, acertos, manobra_forte)
+
+        partidaModel.cadastrarPartida(fkUsuario, quantidade_manobras, acertos, erros, manobra_forte)
             .then(
                 function (resultado) {
                     res.json(resultado);
@@ -41,14 +44,14 @@ function cadastrarPartida(req, res) {
 }
 
 function buscarPartida(req, res) {
-    
+
     var fkUsuario = req.body.fkUsuarioServer;
-    
+
     if (fkUsuario == undefined) {
         res.status(400).send("Sua fkUsuario está undefined!");
     } else {
 
-        
+
         partidaModel.buscarPartida(fkUsuario)
             .then(
                 function (resultado) {

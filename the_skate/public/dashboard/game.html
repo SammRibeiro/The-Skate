@@ -129,7 +129,6 @@
 
 
 
-
     var quantidade_manobras = 0
     var acertos = 0
     var erros = 0
@@ -172,7 +171,7 @@
         btn_acerto.disabled = false
         btn_erro.disabled = false
         btn_sorteio.disabled = true
-        btn_reset.disabled = false
+        btn_reset.disabled = true
     }
 
 
@@ -209,7 +208,7 @@
         mensagem_game.style.display = 'block'
         imagem_manobra.style.display = 'none'
 
-        var aproveitamento = (acertos / quantidade_manobras) * 100;
+        var aproveitamento = ((acertos / quantidade_manobras) * 100).toFixed(1);
 
         var lista_acertos = [
             acerto_ollie,
@@ -227,7 +226,7 @@
         var ax_manobraForte = 0;
         var maior_acerto = lista_acertos[0]
 
-        for (let i = 1; i < lista_acertos.length; i++) {
+        for (var i = 1; i < lista_acertos.length; i++) {
             if (lista_acertos[i] > maior_acerto) {
                 maior_acerto = lista_acertos[i];
                 ax_manobraForte = i;
@@ -237,7 +236,7 @@
         manobra_forte = nome_manobra[ax_manobraForte]
 
 
-
+        console.log(manobra_forte)
 
         mensagem_game.innerHTML = `<span>
         Total de Manobras sorteadas: ${quantidade_manobras} Manobras
@@ -246,19 +245,22 @@
         <br>
         Erros: ${erros} Manobras
         <br>
-        Aproveitamento: ${aproveitamento.toFixed(1)}%
+        Aproveitamento: ${aproveitamento}%
         <br><br><br></span>`
 
         if (aproveitamento > 50) {
             mensagem_game.innerHTML += `<span>Mandou bem demais ${sessionStorage.NOME_USUARIO}, foi um desempenho maneiro !! <br><br> *O progresso é salvo automaticamente e você pode vizualisar seu desempenho na seção do Painel.*</span>`
         }
         else {
-            mensagem_game.innerHTML += '<span>Mandou bem, porém com mais prática podemos melhorar esse resultado !! <br><br> *O progresso é salvo automaticamente e você pode vizualisar seu desempenho na seção do Painel.*</span>'
+            mensagem_game.innerHTML += '<span>Mandou bem, porém com mais prática podemos melhorar esse resultado !! <br><br> *O progresso é salvo automaticamente e você pode visualizar seu desempenho na seção do Painel.*</span>'
         }
 
         setTimeout(function () {
             mensagem_game.innerHTML = 'Preparado para outro game? <br><br><br> Se sim, sorteia outra manobra aí !!'
         }, 15000);
+
+
+
 
         fetch("/partidas/cadastrar", {
             method: "POST",
@@ -269,6 +271,7 @@
                 fkUsuarioServer: sessionStorage.ID_USUARIO,
                 quantidade_manobrasServer: quantidade_manobras,
                 acertosServer: acertos,
+                errosServer: erros,
                 manobra_forteServer: manobra_forte
             }),
         })

@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Skate | Dashboards</title>
+    <title>The Skate</title>
 
 
     <link rel="stylesheet" href="./../css/dashboards.css">
@@ -45,18 +45,33 @@
         </div>
 
         <div class="content-dash">
-            <div class="card">
-
+            <div id="div_kpis">
+                <div class="card">
+                    <h4>Total de Partidas</h4>
+                    <span id="kpi_total_partidas">0</span>
+                </div>
+                <div class="card">
+                    <h4>Total de Acertos</h4>
+                    <span id="kpi_total_acertos">0</span>
+                </div>
+                <div class="card">
+                    <h4>Manobra Forte</h4>
+                    <span id="kpi_manobra_forte">""</span>
+                </div>
             </div>
-            <div class="card">
 
-            </div>
-            <div class="card">
-
-            </div>
-            
             <div id="graficos">
-                <canvas id="myChartCanvas"></canvas>
+                <div class="barra-grafico">
+                    <h2>Pontuação por Partida</h2>
+                    <canvas id="graficoBarra"></canvas>
+                </div>
+
+                <div class="pie-grafico">
+                    <h2>Desempenho Geral</h2>
+                    <canvas id="graficoPie"></canvas>
+                </div>
+
+
             </div>
         </div>
     </div>
@@ -70,17 +85,6 @@
 
     let proximaAtualizacao;
 
-    // O gráfico é construído com três funções:
-    // 1. obterDadosGrafico -> Traz dados do Banco de Dados para montar o gráfico da primeira vez
-    // 2. plotarGrafico -> Monta o gráfico com os dados trazidos e exibe em tela
-    // 3. atualizarGrafico -> Atualiza o gráfico, trazendo novamente dados do Banco
-
-    // Esta função *obterDadosGrafico* busca os últimos dados inseridos em tabela de medidas.
-    // para, quando carregar o gráfico da primeira vez, já trazer com vários dados.
-    // A função *obterDadosGrafico* também invoca a função *plotarGrafico*
-
-    //     Se quiser alterar a busca, ajuste as regras de negócio em src/controllers
-    //     Para ajustar o "select", ajuste o comando sql em src/models
     function carregarPartidas() {
         if (proximaAtualizacao != undefined) {
             clearTimeout(proximaAtualizacao);
@@ -95,11 +99,21 @@
             .then(function (response) {
                 if (response.ok) {
                     response.json().then(function (resposta) {
+                        var ultimos5 = resposta.slice(-5)
                         console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
-                        resposta.reverse();
 
-                        plotarGrafico(resposta);
+                        plotarGrafico(ultimos5);
 
+                        let totalAcertos = 0
+                        let totalErros = 0
+
+                        resposta.forEach(r => {
+                            totalAcertos += r.acertos
+                            totalErros += r.erros
+                        });
+
+
+                        plotarGraficoDesempenho(totalAcertos, totalErros);
                     });
                 } else {
                     console.error('Nenhum dado encontrado ou erro na API');
@@ -110,29 +124,25 @@
             });
     }
 
-    // Esta função *plotarGrafico* usa os dados capturados na função anterior para criar o gráfico
-    // Configura o gráfico (cores, tipo, etc), materializa-o na página e, 
-    // A função *plotarGrafico* também invoca a função *atualizarGrafico*
+
     function plotarGrafico(resposta) {
 
         if (resposta.length == 0) {
-            graficos.innerHTML = '<p style="color: #ffff; text-align: center;">Você ainda não tem nenhuma partida cadastrada.</p>'
+            graficos.innerHTML = '<p style="color: #ffff;">Você ainda não tem nenhuma partida cadastrada.</p>'
             return false;
         }
 
-        console.log('iniciando plotagem do gráfico...');
 
-        // Criando estrutura para plotar gráfico - labels
         let labels = [];
         let dadosAcertos = [];
 
         for (let i = 0; i < resposta.length; i++) {
             let partida = resposta[i];
-            labels.push(partida.dt_sessao)
+            labels.push(new Date(partida.dt_sessao).toLocaleString())
             dadosAcertos.push(partida.acertos)
         }
 
-        // Criando estrutura para plotar gráfico - dados
+
         let dados = {
             labels: labels,
             datasets: [{
@@ -145,20 +155,7 @@
             }]
         };
 
-        console.log('----------------------------------------------')
-        console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
-        console.log(resposta)
 
-
-        console.log('----------------------------------------------')
-        console.log('O gráfico será plotado com os respectivos valores:')
-        console.log('Labels:')
-        console.log(labels)
-        console.log('Dados:')
-        console.log(dados.datasets)
-        console.log('----------------------------------------------')
-
-        // Criando estrutura para plotar gráfico - config
         const config = {
             type: 'bar',
             data: dados,
@@ -173,10 +170,35 @@
 
         // Adicionando gráfico criado em div na tela
         let myChart = new Chart(
-            document.getElementById(`myChartCanvas`),
+            document.getElementById(`graficoBarra`),
             config
         );
     }
+
+    function plotarGraficoDesempenho(acertos, erros) {
+        const data = {
+            labels: ['Acertos', 'Erros'],
+            datasets: [{
+                label: 'Desempenho - Acertos/Erros',
+                data: [acertos, erros],
+                backgroundColor: [
+                    '#3c3c68',
+                    '#05b2dc'
+                ],
+                hoverOffset: 5
+            }]
+        };
+        const config = {
+            type: 'pie',
+            data: data,
+        };
+
+        let myChart = new Chart(
+            document.getElementById(`graficoPie`),
+            config
+        );
+    }
+
 
     carregarPartidas()
 </script>

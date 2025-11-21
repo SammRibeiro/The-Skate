@@ -70,8 +70,6 @@
                     <h2>Desempenho Geral</h2>
                     <canvas id="graficoPie"></canvas>
                 </div>
-
-
             </div>
         </div>
     </div>
@@ -112,8 +110,12 @@
                             totalErros += r.erros
                         });
 
+                        kpi_total_acertos.innerHTML = totalAcertos
+
 
                         plotarGraficoDesempenho(totalAcertos, totalErros);
+
+
                     });
                 } else {
                     console.error('Nenhum dado encontrado ou erro na API');
@@ -123,6 +125,39 @@
                 console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
             });
     }
+
+
+    function buscarTotalPartidas() {
+        fetch(`/partidas/count/${sessionStorage.ID_USUARIO}`, {
+            method: "GET"
+        })
+            .then(res => {
+                res.json().then(json => {
+                    const total = json.TotalPartidas;
+                    kpi_total_partidas.innerHTML = total
+                })
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    }
+
+    function buscarManobraForte() {
+        fetch(`/partidas/manobraforte/${sessionStorage.ID_USUARIO}`, {
+            method: "GET"
+        })
+            .then(res => {
+                res.json().then(json => {
+                    const manobra = json.manobra_forte;
+                    kpi_manobra_forte.innerHTML = manobra
+                })
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    }
+
+
 
 
     function plotarGrafico(resposta) {
@@ -146,7 +181,7 @@
         let dados = {
             labels: labels,
             datasets: [{
-                label: 'Acertos',
+                label: 'Pontuação',
                 data: dadosAcertos,
                 fill: false,
                 borderColor: 'rgb(75, 192, 192)',
@@ -185,7 +220,7 @@
                     '#3c3c68',
                     '#05b2dc'
                 ],
-                hoverOffset: 5
+                hoverOffset: 2
             }]
         };
         const config = {
@@ -200,7 +235,10 @@
     }
 
 
+
     carregarPartidas()
+    buscarTotalPartidas()
+    buscarManobraForte()
 </script>
 
 </html>

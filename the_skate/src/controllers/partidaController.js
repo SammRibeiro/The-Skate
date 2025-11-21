@@ -70,7 +70,53 @@ function buscarPartida(req, res) {
     }
 }
 
+
+function count(req, res) {
+
+    var idUsuario = req.params.idUsuario;
+
+
+    partidaModel.count(idUsuario)
+        .then(
+            function (resultado) {
+                res.json(resultado[0]);
+            }
+        ).catch(
+            function (erro) {
+                console.log(erro);
+                console.log(
+                    "\nHouve um erro ao buscar o total! Erro: ",
+                    erro.sqlMessage
+                );
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+}
+
+function manobraForte(req, res) {
+    var idUsuario = req.params.idUsuario;
+
+
+    partidaModel.manobraForte(idUsuario)
+        .then(
+            function (resultado) {
+                res.json(resultado[0]);
+            }
+        ).catch(
+            function (erro) {
+                console.log(erro);
+                console.log(
+                    "\nHouve um erro ao buscar a manobra forte! Erro: ",
+                    erro.sqlMessage
+                );
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+}
+
 module.exports = {
     cadastrarPartida,
-    buscarPartida
+    buscarPartida,
+    count,
+    manobraForte
 };

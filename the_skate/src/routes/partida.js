@@ -12,4 +12,12 @@ router.post("/buscar", function (req, res) {
     partidaController.buscarPartida(req, res);
 })
 
+router.get("/count/:idUsuario", function (req, res) {
+    partidaController.count(req, res);
+})
+
+router.get("/manobraforte/:idUsuario", function (req, res) {
+    partidaController.manobraForte(req, res);
+})
+
 module.exports = router;

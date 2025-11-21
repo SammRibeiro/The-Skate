@@ -224,11 +224,9 @@
         ];
 
         var ax_manobraForte = 0;
-        var maior_acerto = lista_acertos[0]
-
+    
         for (var i = 1; i < lista_acertos.length; i++) {
-            if (lista_acertos[i] > maior_acerto) {
-                maior_acerto = lista_acertos[i];
+            if (lista_acertos[i] > lista_acertos[ax_manobraForte]) {
                 ax_manobraForte = i;
             }
         }

@@ -114,9 +114,31 @@ function manobraForte(req, res) {
         );
 }
 
+function buscarRecorde(req, res) {
+    var idUsuario = req.params.idUsuario;
+
+
+    partidaModel.buscarRecorde(idUsuario)
+        .then(
+            function (resultado) {
+                res.json(resultado[0]);
+            }
+        ).catch(
+            function (erro) {
+                console.log(erro);
+                console.log(
+                    "\nHouve um erro ao buscar o recorde! Erro: ",
+                    erro.sqlMessage
+                );
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+}
+
 module.exports = {
     cadastrarPartida,
     buscarPartida,
     count,
-    manobraForte
+    manobraForte,
+    buscarRecorde
 };

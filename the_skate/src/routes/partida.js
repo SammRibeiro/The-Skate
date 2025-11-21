@@ -20,4 +20,8 @@ router.get("/manobraforte/:idUsuario", function (req, res) {
     partidaController.manobraForte(req, res);
 })
 
+router.get("/buscarRecorde/:idUsuario", function (req, res) {
+    partidaController.buscarRecorde(req, res);
+})
+
 module.exports = router;

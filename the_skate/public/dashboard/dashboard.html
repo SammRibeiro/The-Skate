@@ -51,8 +51,8 @@
                     <span id="kpi_total_partidas">0</span>
                 </div>
                 <div class="card">
-                    <h4>Total de Acertos</h4>
-                    <span id="kpi_total_acertos">0</span>
+                    <h4>Recorde</h4>
+                    <span id="kpi_recorde">0</span>
                 </div>
                 <div class="card">
                     <h4>Manobra Forte</h4>
@@ -110,8 +110,6 @@
                             totalErros += r.erros
                         });
 
-                        kpi_total_acertos.innerHTML = totalAcertos
-
 
                         plotarGraficoDesempenho(totalAcertos, totalErros);
 
@@ -150,6 +148,21 @@
                 res.json().then(json => {
                     const manobra = json.manobra_forte;
                     kpi_manobra_forte.innerHTML = manobra
+                })
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    }
+
+    function buscarRecorde() {
+        fetch(`/partidas/buscarRecorde/${sessionStorage.ID_USUARIO}`, {
+            method: "GET"
+        })
+            .then(res => {
+                res.json().then(json => {
+                    const Totalrecorde = json.recorde;
+                    kpi_recorde.innerHTML = Totalrecorde
                 })
             })
             .catch(err => {
@@ -239,6 +252,7 @@
     carregarPartidas()
     buscarTotalPartidas()
     buscarManobraForte()
+    buscarRecorde()
 </script>
 
 </html>

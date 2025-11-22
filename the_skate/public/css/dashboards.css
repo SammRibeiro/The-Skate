@@ -196,6 +196,7 @@ body {
   margin-bottom: 10%;
 }
 
+
 .card {
   border-radius: 10px;
   color: #ffff;
@@ -208,10 +209,15 @@ body {
 }
 
 
+.card span{
+  font-size: 40px;
+  font-family: 'Times New Roman', Times, serif;
+}
+
 #graficos {
   display: flex;
   color: #ffff;
-  gap: 300px;
+  gap: 100px;
   flex-wrap: wrap;
   width: 100%;
 }
@@ -223,9 +229,9 @@ body {
 
 #graficoBarra {
   
-  width: 500px;
+  width: 700px;
 }
 
 #graficoPie{
-  width: 250px;
+  width: 350px;
 }

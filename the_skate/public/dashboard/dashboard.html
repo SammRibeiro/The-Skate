@@ -44,7 +44,7 @@
 
         </div>
 
-        <div class="content-dash">
+        <div id="content_dash">
             <div id="div_kpis">
                 <div class="card">
                     <h3>Total de Partidas</h3>
@@ -83,6 +83,7 @@
 
     let proximaAtualizacao;
 
+        // obterDados
     function carregarPartidas() {
         if (proximaAtualizacao != undefined) {
             clearTimeout(proximaAtualizacao);
@@ -176,7 +177,7 @@
     function plotarGrafico(resposta) {
 
         if (resposta.length == 0) {
-            graficos.innerHTML = '<p style="color: #ffff;">Você ainda não tem nenhuma partida cadastrada.</p>'
+            content_dash.innerHTML = '<p style="color: #ffff; text-align: center;">Você ainda não tem nenhuma partida cadastrada.</p>'
             return false;
         }
 

@@ -127,10 +127,10 @@
       setInterval(sumirMensagem, 5000);
     }
 
-    if (senhaVar.length < 8) {
+    if (senhaVar.length < 8 || senhaVar.length > 8) {
       cardErro.style.display = "block";
       mensagem_erro.innerHTML =
-        'Senha deve conter ao menos 8 caracteres.';
+        'Senha deve conter 8 caracteres.';
       finalizarAguardar()
       return false;
     }
